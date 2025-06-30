@@ -14,6 +14,7 @@ import Link from "next/link";
 import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Footer from "./Footer";
 
 const MobileNav = ({ user }: MobileNavProps) => {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
       <Sheet>
         <SheetTrigger>
           <Image
-            src="/icons/hamburguer.svg"
+            src="/icons/hamburger.svg"
             width={30}
             height={30}
             alt="menu"
@@ -31,9 +32,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
         </SheetTrigger>
         <SheetContent
           side="left"
-          className="border-none
-                 bg-white"
-        >
+          className="border-none bg-white">
           <Link
             href="/"
             className="cursor-pointer flex items-center gap-1 px-4"
@@ -96,8 +95,9 @@ const MobileNav = ({ user }: MobileNavProps) => {
             USER
               </nav>
             </SheetClose>
-
-                FOOTER
+            
+            <Footer user={user} type="mobile" />
+          
 
           </div>
         </SheetContent>
