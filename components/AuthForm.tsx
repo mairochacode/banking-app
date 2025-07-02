@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -24,6 +25,7 @@ import { Sign } from "crypto";
 import { email } from "zod/v4-mini";
 import { useRouter } from "next/navigation";
 import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLink from "./PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -62,10 +64,12 @@ const AuthForm = ({ type }: { type: string }) => {
             email: data.email,
             password: data.password
       }
+
        const newUser = await signUp(userData);
 
           setUser(newUser);
         }
+
 
       if(type === 'sign-in') {
         const response = await signIn({
@@ -116,9 +120,11 @@ const AuthForm = ({ type }: { type: string }) => {
           </h1>
         </div>
       </header>
-      {user ? (
-        <div className="flex flex-col gap-4">{/* PlaidLink */}</div>
-      ) : (
+      {user ? ( 
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+          </div>
+         ) : (
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -184,7 +190,6 @@ const AuthForm = ({ type }: { type: string }) => {
                     label="City"
                     placeholder="Enter your city"
                   />
-
                   
                 </>
               )}
@@ -209,11 +214,8 @@ const AuthForm = ({ type }: { type: string }) => {
                       <Loader2 size={20} className="animate-spin" /> &nbsp;
                       Loading...
                     </>
-                  ) : type === "sign-in" ? (
-                    "Sign In"
-                  ) : (
-                    "Sign Up"
-                  )}
+                 ) : type === 'sign-in' 
+                    ? 'Sign In' : 'Sign Up'}
                 </Button>
               </div>
             </form>
@@ -233,7 +235,7 @@ const AuthForm = ({ type }: { type: string }) => {
             </Link>
           </footer>
         </>
-      )}
+      )} 
     </section>
   );
 };
